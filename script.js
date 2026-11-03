@@ -109,6 +109,16 @@ const albums = {
     ["17", "pit stop under the tree 🌳"],
     ["19", "cold coffee at Dora Pancakes ☕"],
   ].map(([n, cap]) => ({ src: `images/lifestyle/${n}.jpg`, cap })),
+  events: [
+    { src: "images/events/p6.jpg", cap: "Genero '26 — coordinator, social media & photography 📸" },
+    { src: "images/events/p1.jpg", cap: "qawwali night 🎶" },
+    { src: "images/events/v1.mp4", cap: "live on stage 🎤", video: true },
+    { src: "images/events/p2.jpg", cap: "LED fashion walk ✨" },
+    { src: "images/events/p4.jpg", cap: "under the spotlight 🔦" },
+    { src: "images/events/p3.jpg", cap: "theatre night 🎭" },
+    { src: "images/events/p5.jpg", cap: "the full stage 🎬" },
+    { src: "images/events/v2.mp4", cap: "fest nights 🌙", video: true },
+  ],
   ride: [
     { src: "images/ride/p1.jpg", cap: "pit stop with a view 🏔️" },
     { src: "images/ride/v4.mp4", cap: "off-road on the hilltop ⛰️", video: true },
