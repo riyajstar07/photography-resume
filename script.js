@@ -63,28 +63,80 @@ filterBtns.forEach((btn) =>
   })
 );
 
-// ───────── camera flash + lightbox ─────────
+// ───────── camera flash + lightbox / albums ─────────
+const albums = {
+  golden: [
+    ["01", "Qutub Minar at night"],
+    ["02", "sunset over the hills"],
+    ["03", "moon behind the clouds"],
+    ["04", "sunset through the leaves"],
+    ["05", "Red Fort after dark"],
+    ["06", "a lot goes wrong before everything goes right"],
+    ["07", "above the clouds ✈️"],
+    ["08", "Dilli through my eyes 🤍"],
+    ["09", "a plane in a golden sky"],
+    ["10", "golden full moon 🌕"],
+    ["11", "dusk over the rooftops"],
+    ["12", "monsoon skies"],
+    ["13", "evening blues"],
+    ["14", "golden clouds over the street"],
+    ["15", "purple dusk"],
+    ["16", "birds & clouds"],
+    ["17", "clouds & greens"],
+  ].map(([n, cap]) => ({ src: `images/golden/${n}.jpg`, cap })),
+};
 const flash = document.getElementById("flash");
 const lightbox = document.getElementById("lightbox");
 const lbImg = document.getElementById("lbImg");
 const lbCap = document.getElementById("lbCap");
+const lbCount = document.getElementById("lbCount");
+const lbPrev = document.getElementById("lbPrev");
+const lbNext = document.getElementById("lbNext");
+let slides = [];
+let at = 0;
+const show = (i) => {
+  at = (i + slides.length) % slides.length;
+  lbImg.src = slides[at].src;
+  lbImg.alt = slides[at].cap;
+  lbCap.textContent = slides[at].cap;
+  lbCount.textContent = slides.length > 1 ? `${at + 1} / ${slides.length}` : "";
+  if (slides.length > 1) new Image().src = slides[(at + 1) % slides.length].src;
+};
+const openLb = (list) => {
+  slides = list;
+  lbPrev.hidden = lbNext.hidden = list.length < 2;
+  show(0);
+  setTimeout(() => (lightbox.hidden = false), 180);
+};
 document.querySelectorAll("[data-flash]").forEach((pol) =>
   pol.addEventListener("click", () => {
     flash.classList.remove("go");
     void flash.offsetWidth;
     flash.classList.add("go");
+    if (pol.dataset.album) return openLb(albums[pol.dataset.album]);
     const img = pol.querySelector("img");
-    if (!img) return;
-    lbImg.src = img.src;
-    lbImg.alt = img.alt;
-    lbCap.textContent = pol.querySelector("figcaption").textContent;
-    setTimeout(() => (lightbox.hidden = false), 180);
+    if (img) openLb([{ src: img.src, cap: pol.querySelector("figcaption").textContent }]);
   })
 );
 const closeLb = () => (lightbox.hidden = true);
 document.getElementById("lbClose").addEventListener("click", closeLb);
+lbPrev.addEventListener("click", () => show(at - 1));
+lbNext.addEventListener("click", () => show(at + 1));
 lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLb(); });
-addEventListener("keydown", (e) => { if (e.key === "Escape") closeLb(); });
+addEventListener("keydown", (e) => {
+  if (lightbox.hidden) return;
+  if (e.key === "Escape") closeLb();
+  if (e.key === "ArrowRight" && slides.length > 1) show(at + 1);
+  if (e.key === "ArrowLeft" && slides.length > 1) show(at - 1);
+});
+let touchX = null;
+lightbox.addEventListener("touchstart", (e) => (touchX = e.touches[0].clientX), { passive: true });
+lightbox.addEventListener("touchend", (e) => {
+  if (touchX === null || slides.length < 2) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 40) show(at + (dx < 0 ? 1 : -1));
+  touchX = null;
+});
 
 // ───────── bike rides across with scroll ─────────
 const rider = document.getElementById("rider");

@@ -232,10 +232,11 @@
       </div>
 
       <div class="wall">
-        <figure class="polaroid tilt-1 reveal" data-cat="photo" data-flash>
+        <figure class="polaroid album tilt-1 reveal" data-cat="photo" data-album="golden" data-flash>
           <span class="tape tape-yellow"></span>
-          <div class="pol-img"><img src="images/work-1.jpg" alt="Portrait photography" onerror="this.remove()" /><div class="ph ph-yellow"><svg><use href="#d-camera"/></svg></div></div>
-          <figcaption>golden hour portraits</figcaption>
+          <span class="album-badge">📸 17 clicks</span>
+          <div class="pol-img"><img src="images/golden/02.jpg" alt="Sunset over the hills" onerror="this.remove()" /><div class="ph ph-yellow"><svg><use href="#d-camera"/></svg></div></div>
+          <figcaption>golden hour &amp; skies</figcaption>
         </figure>
         <figure class="polaroid tilt-2 reveal" data-cat="cafe" data-flash>
           <span class="tape tape-pink"></span>
@@ -443,7 +444,9 @@
   <div class="flash" id="flash" aria-hidden="true"></div>
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo preview" hidden>
     <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
-    <figure><img id="lbImg" alt="" /><figcaption id="lbCap"></figcaption></figure>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous photo" hidden>‹</button>
+    <figure><img id="lbImg" alt="" /><figcaption id="lbCap"></figcaption><span class="lb-count" id="lbCount"></span></figure>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Next photo" hidden>›</button>
   </div>
 
   <script src="script.js"></script>
