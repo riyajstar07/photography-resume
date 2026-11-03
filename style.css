@@ -374,16 +374,8 @@ p { margin: 0; }
 }
 .reel-hot .views { background: var(--red); color: #fff; font-size: 26px; animation: wiggle 2.4s ease-in-out infinite; }
 @keyframes wiggle { 0%, 100% { transform: rotate(6deg); } 50% { transform: rotate(-4deg) scale(1.08); } }
-.spotlight { display: grid; grid-template-columns: 360px 1fr; gap: 56px; align-items: center; margin-bottom: 80px; }
-.spotlight .reel { --rot: -2deg; transform: rotate(-2deg); }
-.spotlight .reel-frame { height: 580px; }
-.spot-kicker { font-family: var(--hand); font-size: 26px; color: var(--red); }
-.spot-title { font-family: var(--doodle); font-weight: 400; font-size: clamp(48px, 7vw, 88px); line-height: 0.95; margin: 6px 0; }
-.spot-sub { font-family: var(--hand); font-size: 28px; color: var(--ink-soft); margin-bottom: 18px; }
-.spotlight-copy > p:not([class]) { font-size: 21px; max-width: 520px; }
-.spot-list { list-style: none; padding: 0; margin: 24px 0 0; display: flex; flex-wrap: wrap; gap: 12px; }
-.spot-list li { display: inline-flex; align-items: center; gap: 8px; padding: 4px 16px; background: var(--card); border: 2px solid var(--ink); border-radius: var(--wobble); font-size: 19px; }
-.spot-list svg { width: 24px; height: 24px; color: var(--red); }
+.reel-pinned .views { background: var(--blue); }
+.reel-grid > :last-child:nth-child(3n+1) { grid-column: 2; }
 .reel-cap { font-family: var(--hand); font-size: 24px; text-align: center; margin-top: 8px; line-height: 1.15; }
 .reel-link { display: block; text-align: center; margin-top: 8px; font-family: var(--hand); font-size: 22px; font-weight: 700; color: var(--note-ink); text-decoration: none; }
 .reel-link:hover { text-decoration: underline wavy var(--red); }
@@ -446,11 +438,12 @@ p { margin: 0; }
   .notes { grid-template-columns: repeat(2, 1fr); }
   .tools { grid-template-columns: 1fr; }
   .reel-grid { grid-template-columns: repeat(2, 1fr); }
-  .spotlight { grid-template-columns: 1fr; gap: 36px; }
-  .spotlight .reel { width: min(360px, 100%); justify-self: center; }
+  .reel-grid > :last-child:nth-child(3n+1) { grid-column: auto; }
+  .reel-grid > :last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 16px); }
 }
 @media (max-width: 640px) {
   .reel-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+  .reel-grid > :last-child:nth-child(odd) { width: auto; justify-self: stretch; }
 }
 @media (max-width: 860px) {
   .burger { display: grid; }
