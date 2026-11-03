@@ -83,6 +83,10 @@ const albums = {
     ["15", "purple dusk"],
     ["16", "birds & clouds"],
     ["17", "clouds & greens"],
+    ["18", "sunset through the trees"],
+    ["19", "red blossoms, blue sky"],
+    ["20", "city lights after sunset"],
+    ["21", "crescent moon & a star ✨"],
   ].map(([n, cap]) => ({ src: `images/golden/${n}.jpg`, cap })),
 };
 const flash = document.getElementById("flash");
