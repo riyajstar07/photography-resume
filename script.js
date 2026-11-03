@@ -109,6 +109,10 @@ const albums = {
     ["18", "pit stop under the tree 🌳"],
     ["19", "cold coffee at Dora Pancakes ☕"],
   ].map(([n, cap]) => ({ src: `images/lifestyle/${n}.jpg`, cap })),
+  bts: [
+    { src: "images/bts.mp4", cap: "event stage BTS 🎤", video: true },
+    { src: "images/bts-2.mp4", cap: "life after no contact 🏔️", video: true },
+  ],
 };
 const flash = document.getElementById("flash");
 const lightbox = document.getElementById("lightbox");
@@ -135,7 +139,8 @@ const show = (i) => {
   lbImg.alt = slides[at].cap;
   lbCap.textContent = slides[at].cap;
   lbCount.textContent = slides.length > 1 ? `${at + 1} / ${slides.length}` : "";
-  if (slides.length > 1) new Image().src = slides[(at + 1) % slides.length].src;
+  const nextSlide = slides[(at + 1) % slides.length];
+  if (slides.length > 1 && !nextSlide.video) new Image().src = nextSlide.src;
 };
 const openLb = (list) => {
   slides = list;
@@ -149,7 +154,6 @@ document.querySelectorAll("[data-flash]").forEach((pol) =>
     void flash.offsetWidth;
     flash.classList.add("go");
     if (pol.dataset.album) return openLb(albums[pol.dataset.album]);
-    if (pol.dataset.video) return openLb([{ src: pol.dataset.video, cap: pol.querySelector("figcaption").textContent, video: true }]);
     const img = pol.querySelector("img");
     if (img) openLb([{ src: img.src, cap: pol.querySelector("figcaption").textContent }]);
   })
