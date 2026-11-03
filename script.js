@@ -88,6 +88,27 @@ const albums = {
     ["20", "city lights after sunset"],
     ["21", "crescent moon & a star ✨"],
   ].map(([n, cap]) => ({ src: `images/golden/${n}.jpg`, cap })),
+  lifestyle: [
+    ["01", "on top of the world ⛰️"],
+    ["02", "my purple room vibes 💜"],
+    ["03", "late-night desk setup 🌙"],
+    ["04", "this corner of my room 🧿"],
+    ["05", "capturing the capturer 📱"],
+    ["06", "evening aarti 🪔"],
+    ["07", "street art & good dogs 🐶"],
+    ["08", "rider's POV 🏍️"],
+    ["09", "adventure mode on 🌊"],
+    ["10", "ye waadiyan 🏔️"],
+    ["11", "always capturing 📸"],
+    ["12", "wildflowers from the trail 🌼"],
+    ["13", "lost in the green 🌿"],
+    ["14", "angry eyes on the road 👀"],
+    ["15", "me & the red Enfield ❤️"],
+    ["16", "Thar & me 🖤"],
+    ["17", "a quiet prayer 🙏"],
+    ["18", "pit stop under the tree 🌳"],
+    ["19", "cold coffee at Dora Pancakes ☕"],
+  ].map(([n, cap]) => ({ src: `images/lifestyle/${n}.jpg`, cap })),
 };
 const flash = document.getElementById("flash");
 const lightbox = document.getElementById("lightbox");
