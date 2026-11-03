@@ -248,9 +248,9 @@
           <div class="pol-img"><img src="images/work-3.jpg" alt="Event coverage" onerror="this.remove()" /><div class="ph ph-pink"><svg><use href="#d-party"/></svg></div></div>
           <figcaption>event night highlights</figcaption>
         </figure>
-        <figure class="polaroid tilt-4 reveal" data-cat="video" data-flash>
+        <figure class="polaroid tilt-4 reveal" data-cat="video" data-video="images/bts.mp4" data-flash>
           <span class="tape tape-mint"></span>
-          <div class="pol-img"><img src="images/work-4.jpg" alt="Reel behind the scenes" onerror="this.remove()" /><div class="ph ph-blue"><svg><use href="#d-play"/></svg></div></div>
+          <div class="pol-img"><video src="images/bts.mp4" poster="images/bts-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Behind the scenes at an event stage"></video><div class="ph ph-blue"><svg><use href="#d-play"/></svg></div><span class="play-badge">▶</span></div>
           <figcaption>reels &amp; BTS</figcaption>
         </figure>
         <figure class="polaroid album tilt-2 reveal" data-cat="photo" data-album="lifestyle" data-flash>
@@ -446,7 +446,7 @@
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo preview" hidden>
     <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
     <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous photo" hidden>‹</button>
-    <figure><img id="lbImg" alt="" /><figcaption id="lbCap"></figcaption><span class="lb-count" id="lbCount"></span></figure>
+    <figure><img id="lbImg" alt="" /><video id="lbVid" controls playsinline hidden></video><figcaption id="lbCap"></figcaption><span class="lb-count" id="lbCount"></span></figure>
     <button class="lb-nav lb-next" id="lbNext" aria-label="Next photo" hidden>›</button>
   </div>
 

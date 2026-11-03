@@ -113,6 +113,7 @@ const albums = {
 const flash = document.getElementById("flash");
 const lightbox = document.getElementById("lightbox");
 const lbImg = document.getElementById("lbImg");
+const lbVid = document.getElementById("lbVid");
 const lbCap = document.getElementById("lbCap");
 const lbCount = document.getElementById("lbCount");
 const lbPrev = document.getElementById("lbPrev");
@@ -121,7 +122,16 @@ let slides = [];
 let at = 0;
 const show = (i) => {
   at = (i + slides.length) % slides.length;
-  lbImg.src = slides[at].src;
+  const isVid = !!slides[at].video;
+  lbImg.hidden = isVid;
+  lbVid.hidden = !isVid;
+  if (isVid) {
+    lbVid.src = slides[at].src;
+    lbVid.play().catch(() => {});
+  } else {
+    lbVid.pause();
+    lbImg.src = slides[at].src;
+  }
   lbImg.alt = slides[at].cap;
   lbCap.textContent = slides[at].cap;
   lbCount.textContent = slides.length > 1 ? `${at + 1} / ${slides.length}` : "";
@@ -139,11 +149,15 @@ document.querySelectorAll("[data-flash]").forEach((pol) =>
     void flash.offsetWidth;
     flash.classList.add("go");
     if (pol.dataset.album) return openLb(albums[pol.dataset.album]);
+    if (pol.dataset.video) return openLb([{ src: pol.dataset.video, cap: pol.querySelector("figcaption").textContent, video: true }]);
     const img = pol.querySelector("img");
     if (img) openLb([{ src: img.src, cap: pol.querySelector("figcaption").textContent }]);
   })
 );
-const closeLb = () => (lightbox.hidden = true);
+const closeLb = () => {
+  lightbox.hidden = true;
+  lbVid.pause();
+};
 document.getElementById("lbClose").addEventListener("click", closeLb);
 lbPrev.addEventListener("click", () => show(at - 1));
 lbNext.addEventListener("click", () => show(at + 1));
