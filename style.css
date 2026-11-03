@@ -351,7 +351,13 @@ p { margin: 0; }
 
 /* ───────── ride ───────── */
 .ride { position: relative; background: var(--ink); color: var(--paper); overflow: hidden; padding: clamp(80px, 11vw, 130px) clamp(16px, 5vw, 64px) 0; transform: rotate(-1deg); margin: 40px -20px; }
-.ride-inner { max-width: 1240px; margin: 0 auto; transform: rotate(1deg); padding: 0 20px; }
+.ride-inner { max-width: 1240px; margin: 0 auto; transform: rotate(1deg); padding: 0 20px; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
+.reel { position: relative; width: 340px; padding: 14px 14px 12px; background: #fffefa; color: var(--note-ink); border-radius: 26px; box-shadow: 8px 8px 0 var(--yellow); --rot: 3deg; }
+.reel-note { font-family: var(--hand); font-size: 24px; text-align: center; margin: 4px 0 8px; }
+.reel-frame { position: relative; height: 560px; overflow: hidden; border: 2.5px solid var(--note-ink); border-radius: 18px; background: #fff; }
+.reel-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.reel-link { display: block; text-align: center; margin-top: 8px; font-family: var(--hand); font-size: 22px; font-weight: 700; color: var(--note-ink); text-decoration: none; }
+.reel-link:hover { text-decoration: underline wavy var(--red); }
 .ride-kicker { font-family: var(--hand); font-size: 28px; color: var(--yellow); }
 .ride-title { font-family: var(--doodle); font-weight: 400; font-size: clamp(44px, 8vw, 104px); line-height: 0.95; margin: 8px 0 22px; }
 .ride-text { font-size: 21px; max-width: 580px; opacity: 0.85; }
@@ -429,6 +435,9 @@ p { margin: 0; }
   .scroll-hint { display: none; }
   .about-grid { grid-template-columns: 1fr; }
   .channels { grid-template-columns: 1fr; }
+  .ride-inner { grid-template-columns: 1fr; justify-items: center; }
+  .ride-copy { justify-self: stretch; }
+  .reel { width: min(340px, 100%); }
   .wall { grid-template-columns: repeat(2, 1fr); gap: 30px 18px; }
 }
 @media (max-width: 560px) {
