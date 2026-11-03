@@ -272,6 +272,19 @@ p { margin: 0; }
 .stat-num { font-family: var(--doodle); font-size: clamp(52px, 6vw, 72px); line-height: 1; }
 .stat-label { font-size: 19px; line-height: 1.25; margin-top: 6px; }
 
+.clients { margin-top: 56px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.clients-label { font-family: var(--hand); font-size: 28px; font-weight: 700; }
+.client-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.client-list li {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 18px;
+  font-family: var(--hand); font-size: 24px; font-weight: 700; color: var(--note-ink);
+  background: var(--orange); border: 2.5px solid var(--ink); border-radius: var(--wobble); box-shadow: 3px 3px 0 var(--shadow);
+}
+.client-list li:nth-child(2) { background: var(--pink); transform: rotate(1.5deg); }
+.client-list li:first-child { transform: rotate(-1.5deg); }
+.client-list svg { width: 24px; height: 24px; }
+.client-list .client-more { background: transparent; color: var(--ink); border-style: dashed; box-shadow: none; font-weight: 500; }
+
 /* ───────── services ───────── */
 .notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px 26px; }
 .sticky {
