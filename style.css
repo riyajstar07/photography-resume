@@ -189,7 +189,7 @@ p { margin: 0; }
 .nowrap { white-space: nowrap; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 16px; }
 
-.hero-art { position: relative; height: 560px; }
+.hero-art { position: relative; height: 700px; }
 .polaroid {
   position: relative; margin: 0; padding: 12px 12px 0; background: #fffefa; color: var(--note-ink);
   box-shadow: 0 1px 0 rgba(0,0,0,.08), 6px 8px 0 rgba(29,27,25,.18), 0 18px 30px -12px rgba(0,0,0,.3);
@@ -214,7 +214,7 @@ p { margin: 0; }
 .hero-art .polaroid { position: absolute; width: 250px; }
 .pol-a { top: 10px; left: 8%; --rot: -6deg; z-index: 2; }
 .pol-b { top: 70px; right: 2%; --rot: 7deg; width: 220px !important; }
-.pol-c { bottom: 0; left: 30%; --rot: -2deg; width: 230px !important; z-index: 3; }
+.pol-c { top: 365px; left: 30%; --rot: -2deg; width: 230px !important; z-index: 3; }
 .note-arrow { position: absolute; bottom: 70px; left: -6%; font-family: var(--hand); font-size: 24px; color: var(--red); transform: rotate(-6deg); line-height: 1.1; }
 .note-arrow svg { display: block; width: 110px; height: 64px; margin-top: 4px; transform: scaleY(-1) rotate(10deg); }
 
@@ -453,10 +453,10 @@ p { margin: 0; }
   .nav-links.open { display: flex; }
   .nav-links a { font-size: 24px; padding: 8px 14px; }
   .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 120px; gap: 20px; }
-  .hero-art { height: 440px; max-width: 460px; width: 100%; margin: 0 auto; }
+  .hero-art { height: 590px; max-width: 460px; width: 100%; margin: 0 auto; }
   .hero-art .polaroid { width: 190px; }
   .pol-b { width: 170px !important; }
-  .pol-c { width: 180px !important; left: 26%; }
+  .pol-c { width: 180px !important; left: 26%; top: 300px; }
   .note-arrow { display: none; }
   .scroll-hint { display: none; }
   .about-grid { grid-template-columns: 1fr; }
@@ -473,11 +473,11 @@ p { margin: 0; }
   .stat { padding: 18px 14px 16px; }
   .stat-ic { width: 30px; height: 30px; }
   .notebook { padding: 34px 18px 24px 50px; background-image: linear-gradient(90deg, transparent 34px, rgba(255, 90, 78, .55) 34px 36px, transparent 36px), repeating-linear-gradient(transparent 0 33px, rgba(110, 160, 220, .35) 33px 34px); }
-  .hero-art { height: 380px; }
+  .hero-art { height: 515px; }
   .hero-art .polaroid { width: 160px; padding: 8px 8px 0; }
   .pol-a { left: 0; }
   .pol-b { width: 150px !important; right: 0; }
-  .pol-c { width: 155px !important; left: 22%; }
+  .pol-c { width: 155px !important; left: 22%; top: 278px; }
   .polaroid figcaption { font-size: 21px; }
   .wall .polaroid { padding: 8px 8px 0; }
   .channel { grid-template-columns: auto 1fr; padding: 18px; }
