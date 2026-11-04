@@ -45,6 +45,8 @@
       <symbol id="d-coffee" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 26c11-1 22-1 32 0 0 7 1 14-2 20-3 6-8 8-14 8s-11-2-14-8c-3-6-2-13-2-20z"/><path d="M44 30c4-1 8 1 8 5s-4 7-9 6"/><path d="M22 8c-3 4 3 7 0 11M32 6c-3 4 3 7 0 11"/></g></symbol>
       <symbol id="d-play" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"><circle cx="32" cy="32" r="25"/><path d="M26 20l18 12-18 12z"/></g></symbol>
       <symbol id="d-mail" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14c17-1 35-1 52 0 1 12 1 24 0 36-17 1-35 1-52 0-1-12-1-24 0-36z"/><path d="M7 16l25 20 25-20"/></g></symbol>
+      <symbol id="d-cloud" viewBox="0 0 64 40"><path fill="#fffefa" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" d="M13 36c-6 0-10-4-10-9 0-5 4-9 9-9 1-7 7-12 14-12 6 0 11 4 13 9 2-1 3-1 5-1 7 0 12 5 12 11s-5 11-12 11H13z"/></symbol>
+      <symbol id="d-birds" viewBox="0 0 60 24"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M2 12c4-6 8-6 10 0 2-6 6-6 10 0"/><path d="M34 6c3-4 6-4 8 0 2-4 5-4 8 0"/><path d="M28 20c2-3 4-3 6 0 2-3 4-3 6 0"/></g></symbol>
       <symbol id="d-bike" viewBox="0 0 220 120"><g fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="44" cy="86" r="26"/><circle cx="44" cy="86" r="6"/><circle cx="176" cy="86" r="26"/><circle cx="176" cy="86" r="6"/><path d="M44 86l34-30h52l20 30"/><path d="M78 56l20 30h46"/><path d="M130 56l14-26 18-4"/><path d="M82 46c10-8 30-8 44 0"/><path d="M98 40c2-12 10-22 22-22 8 0 12 6 12 12"/><circle cx="118" cy="14" r="9"/><path d="M110 46l-8 26"/></g></symbol>
     </defs>
   </svg>
@@ -407,6 +409,15 @@
 
     <!-- ───────── RIDE ───────── -->
     <section class="ride" id="ride">
+      <div class="ride-doodles" aria-hidden="true">
+        <svg class="rd-sun"><use href="#d-sun"/></svg>
+        <svg class="rd-cloud c1"><use href="#d-cloud"/></svg>
+        <svg class="rd-cloud c2"><use href="#d-cloud"/></svg>
+        <svg class="rd-cloud c3"><use href="#d-cloud"/></svg>
+        <svg class="rd-birds"><use href="#d-birds"/></svg>
+        <svg class="rd-spark s1"><use href="#d-sparkle"/></svg>
+        <svg class="rd-spark s2"><use href="#d-sparkle"/></svg>
+      </div>
       <div class="ride-inner">
         <div class="ride-copy">
           <p class="ride-kicker reveal">beyond the camera</p>
@@ -424,6 +435,11 @@
         </div>
       </div>
       <div class="road" aria-hidden="true">
+        <svg class="mountains" viewBox="0 0 1200 140" preserveAspectRatio="none">
+          <path class="m-back" d="M0 140 L0 70 L90 30 L170 80 L270 12 L380 90 L470 40 L560 95 L660 20 L770 85 L860 45 L960 100 L1060 28 L1150 75 L1200 55 L1200 140 Z"/>
+          <path class="m-front" d="M0 140 L0 105 L120 70 L220 110 L330 62 L450 115 L560 80 L690 118 L800 72 L930 112 L1040 76 L1140 108 L1200 92 L1200 140 Z"/>
+          <path class="m-snow" d="M255 22 L270 12 L287 26 M645 30 L660 20 L676 32 M1046 38 L1060 28 L1074 40"/>
+        </svg>
         <svg class="rider" id="rider"><use href="#d-bike"/></svg>
         <div class="road-line"></div>
       </div>

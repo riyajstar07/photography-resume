@@ -380,8 +380,25 @@ p { margin: 0; }
 .ch-go { font-family: var(--hand); font-size: 24px; font-weight: 700; white-space: nowrap; }
 
 /* ───────── ride ───────── */
-.ride { position: relative; background: linear-gradient(120deg, #ffe0b2 0%, #ffc8d8 50%, #d8ccff 100%); color: #1d1b19; border-block: 2.5px solid var(--ink); overflow: hidden; padding: clamp(80px, 11vw, 130px) clamp(16px, 5vw, 64px) 0; transform: rotate(-1deg); margin: 40px -20px; }
-.ride-inner { max-width: 1240px; margin: 0 auto; transform: rotate(1deg); padding: 0 20px; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
+.ride { position: relative; background: linear-gradient(180deg, #bfe3ff 0%, #def2ff 45%, #e6f7ea 75%, #c9ecd4 100%); color: #1d1b19; border-block: 2.5px solid var(--ink); overflow: hidden; padding: clamp(80px, 11vw, 130px) clamp(16px, 5vw, 64px) 0; transform: rotate(-1deg); margin: 40px -20px; }
+.ride-doodles { position: absolute; inset: 0; pointer-events: none; color: #1d1b19; }
+.ride-doodles svg { position: absolute; }
+.rd-sun { top: 46px; right: 7%; width: 96px; height: 96px; color: #f2a900; animation: spin 24s linear infinite; }
+.rd-cloud { width: 120px; height: 75px; animation: drift 18s ease-in-out infinite alternate; }
+.rd-cloud.c1 { top: 70px; right: 22%; }
+.rd-cloud.c2 { top: 150px; right: 3%; width: 90px; height: 56px; animation-duration: 24s; }
+.rd-cloud.c3 { top: 36px; left: 46%; width: 80px; height: 50px; animation-duration: 21s; }
+.rd-birds { top: 120px; left: 36%; width: 80px; height: 32px; animation: bob 6s ease-in-out infinite; }
+.rd-spark { width: 22px; height: 22px; color: #ff7aa2; animation: bob 4s ease-in-out infinite; }
+.rd-spark.s1 { top: 260px; right: 40%; }
+.rd-spark.s2 { bottom: 210px; left: 4%; color: #8a6cff; animation-delay: -2s; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes drift { to { transform: translateX(-40px); } }
+.mountains { position: absolute; left: -20px; right: -20px; bottom: 20px; width: calc(100% + 40px); height: 120px; }
+.m-back { fill: #a9d8bd; stroke: #1d1b19; stroke-width: 2.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.m-front { fill: #7cc79a; stroke: #1d1b19; stroke-width: 2.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.m-snow { fill: none; stroke: #fffefa; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.ride-inner { position: relative; z-index: 1;  max-width: 1240px; margin: 0 auto; transform: rotate(1deg); padding: 0 20px; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
 .reel { position: relative; width: 340px; padding: 14px 14px 12px; background: #fffefa; color: var(--note-ink); border-radius: 26px; box-shadow: 8px 8px 0 var(--yellow); --rot: 3deg; }
 .reel-note { font-family: var(--hand); font-size: 24px; text-align: center; margin: 4px 0 8px; }
 .reel-frame { position: relative; height: 560px; overflow: hidden; border: 2.5px solid var(--note-ink); border-radius: 18px; background: #fff; }
@@ -434,8 +451,8 @@ p { margin: 0; }
 .ride .reel { border: 2.5px solid #1d1b19; box-shadow: 8px 8px 0 #1d1b19; }
 .ride-tags { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
 .ride-tags span { padding: 4px 16px; border: 2px dashed #1d1b19; border-radius: 999px; font-size: 18px; background: rgba(255,255,255,.45); }
-.road { position: relative; height: 170px; margin-top: 30px; transform: rotate(1deg); }
-.rider { position: absolute; bottom: 22px; left: 0; width: 200px; height: 110px; color: #1d1b19; will-change: transform; }
+.road { position: relative; height: 190px; margin-top: 30px; transform: rotate(1deg); }
+.rider { position: absolute; z-index: 2; bottom: 22px; left: 0; width: 200px; height: 110px; color: #1d1b19; will-change: transform; }
 .road-line { position: absolute; left: -20px; right: -20px; bottom: 18px; border-top: 4px dashed #1d1b19; opacity: 0.5; }
 
 /* ───────── contact ───────── */
@@ -539,6 +556,11 @@ p { margin: 0; }
   .wall { grid-template-columns: repeat(2, 1fr); gap: 30px 18px; }
 }
 @media (max-width: 560px) {
+  .rd-sun { width: 64px; height: 64px; top: 30px; right: 5%; }
+  .rd-cloud.c1 { right: 30%; top: 44px; width: 80px; height: 50px; }
+  .rd-cloud.c3, .rd-spark.s1 { display: none; }
+  .rd-birds { left: auto; right: 12%; top: 110px; width: 60px; }
+  .mountains { height: 90px; }
   .reel-grid { gap: 18px; padding-inline: 11vw; }
   .reel-grid > .reel { flex-basis: 78vw; }
   .reel-sm .reel-frame { height: 480px; }
