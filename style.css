@@ -520,6 +520,13 @@ p { margin: 0; }
 .form textarea { resize: vertical; }
 .form input:focus, .form select:focus, .form textarea:focus { outline: none; box-shadow: 4px 4px 0 var(--yellow); }
 .form .btn { justify-content: center; }
+.form .btn:disabled { opacity: 0.7; cursor: wait; }
+.honey { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.form-msg { min-height: 0; font-size: 19px; }
+.form-msg.ok, .form-msg.err { padding: 10px 14px; border: 2px dashed var(--ink); border-radius: var(--wobble-2); }
+.form-msg.ok { background: var(--mint); color: var(--note-ink); }
+.form-msg.err { background: var(--pink); color: var(--note-ink); }
+.form-msg a { color: inherit; font-weight: 700; }
 .contact-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 30px; padding-top: 24px; border-top: 2px dashed var(--line); }
 .contact-links a { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 20px; }
 .contact-links a:hover { text-decoration: underline wavy var(--red); text-underline-offset: 5px; }

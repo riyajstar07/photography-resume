@@ -306,13 +306,45 @@ if (!reduce && matchMedia("(pointer: fine)").matches) {
   });
 }
 
-// ───────── contact form → email ─────────
-document.getElementById("contactForm").addEventListener("submit", (e) => {
+// ───────── contact form → straight to Riya's inbox (FormSubmit) ─────────
+const form = document.getElementById("contactForm");
+const formMsg = document.getElementById("formMsg");
+const sendBtn = form.querySelector('button[type="submit"]');
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const d = new FormData(e.target);
-  const subject = `${d.get("type")} enquiry from ${d.get("name")}`;
-  const body = `Hi Riya,\n\n${d.get("msg") || ""}\n\nName: ${d.get("name")}\nContact: ${d.get("contact")}\nService: ${d.get("type")}`;
-  location.href = `mailto:riyajstar07@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const d = new FormData(form);
+  if (d.get("_honey")) return; // bots fill the hidden field
+  const payload = {
+    name: d.get("name"),
+    contact: d.get("contact"),
+    service: d.get("type"),
+    message: d.get("msg") || "-",
+    _subject: `New ${d.get("type")} enquiry from ${d.get("name")}`,
+    _template: "table",
+  };
+  sendBtn.disabled = true;
+  sendBtn.firstChild.textContent = "Sending… ";
+  formMsg.className = "form-msg";
+  formMsg.textContent = "";
+  try {
+    const res = await fetch("https://formsubmit.co/ajax/riyajstar07@gmail.com", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const out = await res.json().catch(() => ({}));
+    if (!res.ok || String(out.success) === "false") throw new Error(out.message || "failed");
+    form.reset();
+    formMsg.classList.add("ok");
+    formMsg.textContent = "Thank you! Your enquiry has been sent — I'll get back to you soon ✿";
+  } catch (err) {
+    const body = `Hi Riya,\n\n${payload.message}\n\nName: ${payload.name}\nContact: ${payload.contact}\nService: ${payload.service}`;
+    formMsg.classList.add("err");
+    formMsg.innerHTML = `Couldn't send right now. <a href="mailto:riyajstar07@gmail.com?subject=${encodeURIComponent(payload._subject)}&body=${encodeURIComponent(body)}">Email me directly instead →</a>`;
+  } finally {
+    sendBtn.disabled = false;
+    sendBtn.firstChild.textContent = "Send enquiry ";
+  }
 });
 
 // ───────── copy email, Delhi time, back to top ─────────
@@ -360,7 +392,7 @@ const loadPlayer = () => {
       videoId: SONG.videoId,
       playerVars: { start: SONG.start, end: SONG.end, playsinline: 1, rel: 0, controls: 0, disablekb: 1, modestbranding: 1 },
       events: {
-        onReady: () => { playerReady = true; if (inContact) startMusic(); },
+        onReady: () => { playerReady = true; if (inContact || pendingPlay) startMusic(true); },
         onStateChange: (e) => {
           showState(e.data === YT.PlayerState.PLAYING);
           if (e.data === YT.PlayerState.ENDED) player.seekTo(SONG.start, true), player.pauseVideo();
@@ -372,8 +404,10 @@ const loadPlayer = () => {
   s.src = "https://www.youtube.com/iframe_api";
   document.head.appendChild(s);
 };
-const startMusic = () => {
-  if (!playerReady || !musicOn || !inContact) return;
+let pendingPlay = false;
+const startMusic = (force = false) => {
+  if (!musicOn || (!inContact && !force)) return;
+  if (!playerReady) { pendingPlay = force || pendingPlay; return; }
   const st = player.getPlayerState();
   if (st === YT.PlayerState.PLAYING || st === YT.PlayerState.BUFFERING) return;
   const t = player.getCurrentTime();
@@ -392,11 +426,25 @@ np.addEventListener("click", () => {
     startMusic();
   }
 });
-// browsers only allow sound after the visitor has tapped/clicked once
+// browsers only allow sound after the visitor has tapped/clicked once,
+// so get the player ready on the first interaction anywhere on the page
 ["pointerdown", "keydown", "touchstart"].forEach((ev) =>
-  addEventListener(ev, (e) => inContact && !np.contains(e.target) && startMusic(), { passive: true })
+  addEventListener(ev, (e) => {
+    loadPlayer();
+    if (inContact && !np.contains(e.target)) startMusic();
+  }, { passive: true })
+);
+// "Hire me" / "Book a shoot": start the song inside the click itself (needed by Brave/Safari)
+document.querySelectorAll('a[href="#contact"]').forEach((a) =>
+  a.addEventListener("click", () => {
+    musicOn = true;
+    loadPlayer();
+    startMusic(true);
+  })
 );
 const contactEl = document.getElementById("contact");
+// warm the player up a few seconds after load so a "Hire me" click can start it instantly
+addEventListener("load", () => setTimeout(() => ("requestIdleCallback" in window ? requestIdleCallback(loadPlayer) : loadPlayer()), 3000));
 new IntersectionObserver(([e]) => e.isIntersecting && loadPlayer(), { rootMargin: "800px 0px" }).observe(contactEl);
 new IntersectionObserver(
   ([entry]) => {
