@@ -202,6 +202,46 @@ lightbox.addEventListener("touchend", (e) => {
   touchX = null;
 });
 
+// ───────── featured reels carousel ─────────
+const track = document.getElementById("reelTrack");
+if (track) {
+  const cards = [...track.children];
+  const dots = document.getElementById("reelDots");
+  const prev = document.querySelector(".car-prev");
+  const next = document.querySelector(".car-next");
+  cards.forEach((_, i) => {
+    const d = document.createElement("button");
+    d.type = "button";
+    d.setAttribute("aria-label", `Reel ${i + 1}`);
+    d.addEventListener("click", () => goTo(i));
+    dots.appendChild(d);
+  });
+  let current = 0;
+  const goTo = (i) => {
+    const c = cards[Math.max(0, Math.min(cards.length - 1, i))];
+    track.scrollTo({ left: c.offsetLeft - (track.clientWidth - c.offsetWidth) / 2 });
+  };
+  const update = () => {
+    const mid = track.scrollLeft + track.clientWidth / 2;
+    let best = 0;
+    cards.forEach((c, i) => {
+      if (Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid) < Math.abs(cards[best].offsetLeft + cards[best].offsetWidth / 2 - mid)) best = i;
+    });
+    current = best;
+    cards.forEach((c, i) => c.classList.toggle("is-active", i === best));
+    [...dots.children].forEach((d, i) => d.classList.toggle("on", i === best));
+    prev.disabled = best === 0;
+    next.disabled = best === cards.length - 1;
+  };
+  prev.addEventListener("click", () => goTo(current - 1));
+  next.addEventListener("click", () => goTo(current + 1));
+  cards.forEach((c, i) => c.addEventListener("click", () => i !== current && goTo(i), true));
+  let raf;
+  track.addEventListener("scroll", () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); }, { passive: true });
+  addEventListener("resize", update);
+  update();
+}
+
 // ───────── bike rides across with scroll ─────────
 const rider = document.getElementById("rider");
 const ride = document.getElementById("ride");
