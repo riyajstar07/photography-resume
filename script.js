@@ -306,4 +306,73 @@ setInterval(tick, 30000);
 const toTop = document.getElementById("toTop");
 addEventListener("scroll", () => toTop.classList.toggle("show", scrollY > 900), { passive: true });
 
+// ───────── "Photograph" on the contact section (lyric video, 0:53 → 1:27) ─────────
+const SONG = { videoId: "KKQl-pIRQMY", start: 53, end: 87 };
+const np = document.getElementById("nowPlaying");
+const npState = np.querySelector(".np-state");
+let player = null;
+let playerReady = false;
+let musicOn = true; // visitor can switch it off; then it stays off
+let inContact = false;
+const showState = (playing) => {
+  np.classList.toggle("on", playing);
+  np.setAttribute("aria-pressed", playing);
+  npState.textContent = playing ? "now playing" : musicOn ? "tap for music" : "music off";
+};
+const loadPlayer = () => {
+  if (player) return;
+  player = true;
+  window.onYouTubeIframeAPIReady = () => {
+    player = new YT.Player("ytSong", {
+      width: 220,
+      height: 220,
+      videoId: SONG.videoId,
+      playerVars: { start: SONG.start, end: SONG.end, playsinline: 1, rel: 0, controls: 0, disablekb: 1, modestbranding: 1 },
+      events: {
+        onReady: () => { playerReady = true; if (inContact) startMusic(); },
+        onStateChange: (e) => {
+          showState(e.data === YT.PlayerState.PLAYING);
+          if (e.data === YT.PlayerState.ENDED) player.seekTo(SONG.start, true), player.pauseVideo();
+        },
+      },
+    });
+  };
+  const s = document.createElement("script");
+  s.src = "https://www.youtube.com/iframe_api";
+  document.head.appendChild(s);
+};
+const startMusic = () => {
+  if (!playerReady || !musicOn || !inContact) return;
+  const st = player.getPlayerState();
+  if (st === YT.PlayerState.PLAYING || st === YT.PlayerState.BUFFERING) return;
+  const t = player.getCurrentTime();
+  if (t < SONG.start || t >= SONG.end - 0.5) player.seekTo(SONG.start, true);
+  player.playVideo();
+};
+const stopMusic = () => playerReady && player.pauseVideo();
+np.addEventListener("click", () => {
+  if (!playerReady) return;
+  if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+    musicOn = false;
+    stopMusic();
+    showState(false);
+  } else {
+    musicOn = true;
+    startMusic();
+  }
+});
+// browsers only allow sound after the visitor has tapped/clicked once
+["pointerdown", "keydown", "touchstart"].forEach((ev) =>
+  addEventListener(ev, (e) => inContact && !np.contains(e.target) && startMusic(), { passive: true })
+);
+const contactEl = document.getElementById("contact");
+new IntersectionObserver(([e]) => e.isIntersecting && loadPlayer(), { rootMargin: "800px 0px" }).observe(contactEl);
+new IntersectionObserver(
+  ([entry]) => {
+    inContact = entry.isIntersecting;
+    inContact ? startMusic() : stopMusic();
+  },
+  { threshold: 0.3 }
+).observe(contactEl);
+
 document.getElementById("year").textContent = new Date().getFullYear();
