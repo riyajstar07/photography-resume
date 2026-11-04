@@ -16,7 +16,6 @@
   --orange: #ffb27a;
   --red: #ff5a4e;
   --note-ink: #1d1b19;
-  --ride-bg: #1d1b19;
 
   --wobble: 255px 15px 225px 15px / 15px 225px 15px 255px;
   --wobble-2: 15px 255px 15px 225px / 225px 15px 255px 15px;
@@ -35,11 +34,9 @@
     --card: #26312c;
     --line: rgba(244, 240, 228, 0.18);
     --shadow: #0b0f0d;
-    --ride-bg: #0e1411;
   }
 }
 :root[data-theme="dark"] {
-  --ride-bg: #0e1411;
   --paper: #1e2723;
   --paper-dot: rgba(244, 240, 228, 0.09);
   --ink: #f4f0e4;
@@ -383,7 +380,7 @@ p { margin: 0; }
 .ch-go { font-family: var(--hand); font-size: 24px; font-weight: 700; white-space: nowrap; }
 
 /* ───────── ride ───────── */
-.ride { position: relative; background: var(--ride-bg); color: #fdf7ea; overflow: hidden; padding: clamp(80px, 11vw, 130px) clamp(16px, 5vw, 64px) 0; transform: rotate(-1deg); margin: 40px -20px; }
+.ride { position: relative; background: linear-gradient(120deg, #ffe0b2 0%, #ffc8d8 50%, #d8ccff 100%); color: #1d1b19; border-block: 2.5px solid var(--ink); overflow: hidden; padding: clamp(80px, 11vw, 130px) clamp(16px, 5vw, 64px) 0; transform: rotate(-1deg); margin: 40px -20px; }
 .ride-inner { max-width: 1240px; margin: 0 auto; transform: rotate(1deg); padding: 0 20px; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
 .reel { position: relative; width: 340px; padding: 14px 14px 12px; background: #fffefa; color: var(--note-ink); border-radius: 26px; box-shadow: 8px 8px 0 var(--yellow); --rot: 3deg; }
 .reel-note { font-family: var(--hand); font-size: 24px; text-align: center; margin: 4px 0 8px; }
@@ -431,14 +428,15 @@ p { margin: 0; }
 .reel-cap { font-family: var(--hand); font-size: 24px; text-align: center; margin-top: 8px; line-height: 1.15; }
 .reel-link { display: block; text-align: center; margin-top: 8px; font-family: var(--hand); font-size: 22px; font-weight: 700; color: var(--note-ink); text-decoration: none; }
 .reel-link:hover { text-decoration: underline wavy var(--red); }
-.ride-kicker { display: inline-block; padding: 2px 16px; font-family: var(--hand); font-size: 26px; font-weight: 700; color: #1d1b19; background: var(--yellow); border-radius: 999px; transform: rotate(-2deg); }
+.ride-kicker { display: inline-block; padding: 2px 16px; font-family: var(--hand); font-size: 26px; font-weight: 700; color: #1d1b19; background: #fffefa; border: 2px solid #1d1b19; border-radius: 999px; transform: rotate(-2deg); }
 .ride-title { font-family: var(--doodle); font-weight: 400; font-size: clamp(44px, 8vw, 104px); line-height: 0.95; margin: 8px 0 22px; }
 .ride-text { font-size: 21px; max-width: 580px; opacity: 0.85; }
+.ride .reel { border: 2.5px solid #1d1b19; box-shadow: 8px 8px 0 #1d1b19; }
 .ride-tags { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
-.ride-tags span { padding: 4px 16px; border: 2px dashed #fdf7ea; border-radius: 999px; font-size: 18px; }
+.ride-tags span { padding: 4px 16px; border: 2px dashed #1d1b19; border-radius: 999px; font-size: 18px; background: rgba(255,255,255,.45); }
 .road { position: relative; height: 170px; margin-top: 30px; transform: rotate(1deg); }
-.rider { position: absolute; bottom: 22px; left: 0; width: 200px; height: 110px; color: var(--yellow); will-change: transform; }
-.road-line { position: absolute; left: -20px; right: -20px; bottom: 18px; border-top: 4px dashed #fdf7ea; opacity: 0.6; }
+.rider { position: absolute; bottom: 22px; left: 0; width: 200px; height: 110px; color: #1d1b19; will-change: transform; }
+.road-line { position: absolute; left: -20px; right: -20px; bottom: 18px; border-top: 4px dashed #1d1b19; opacity: 0.5; }
 
 /* ───────── contact ───────── */
 .letter {
