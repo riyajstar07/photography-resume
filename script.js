@@ -284,4 +284,26 @@ document.getElementById("contactForm").addEventListener("submit", (e) => {
   location.href = `mailto:riyajstar07@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 });
 
+// ───────── copy email, Delhi time, back to top ─────────
+document.querySelectorAll("[data-copy]").forEach((btn) =>
+  btn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(btn.dataset.copy);
+      btn.textContent = "copied ✓";
+    } catch (e) {
+      btn.textContent = "select & copy";
+    }
+    btn.classList.add("done");
+    setTimeout(() => { btn.textContent = "copy"; btn.classList.remove("done"); }, 1800);
+  })
+);
+const delhiTime = document.getElementById("delhiTime");
+const tick = () => {
+  delhiTime.textContent = new Date().toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "numeric", minute: "2-digit" });
+};
+tick();
+setInterval(tick, 30000);
+const toTop = document.getElementById("toTop");
+addEventListener("scroll", () => toTop.classList.toggle("show", scrollY > 900), { passive: true });
+
 document.getElementById("year").textContent = new Date().getFullYear();
