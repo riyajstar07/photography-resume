@@ -91,7 +91,7 @@ const albums = {
   lifestyle: [
     ["01", "on top of the world"],
     ["02", "my room in purple light"],
-    ["05", "capturing the moment"],
+    ["05", "capturing the capturer"],
     ["09", "waterfall trail"],
     ["07", "street art"],
     ["08", "rider's point of view"],
@@ -145,23 +145,52 @@ const lbPrev = document.getElementById("lbPrev");
 const lbNext = document.getElementById("lbNext");
 let slides = [];
 let at = 0;
+const lbFig = lightbox.querySelector("figure");
+const cache = new Map();
+const preload = (s) => {
+  if (!s || s.video || cache.has(s.src)) return;
+  const im = new Image();
+  im.decoding = "async";
+  im.src = s.src;
+  cache.set(s.src, im);
+};
+let showToken = 0;
 const show = (i) => {
   at = (i + slides.length) % slides.length;
-  const isVid = !!slides[at].video;
-  lbImg.hidden = isVid;
-  lbVid.hidden = !isVid;
-  if (isVid) {
-    lbVid.src = slides[at].src;
+  const s = slides[at];
+  const token = ++showToken;
+  lbCount.textContent = slides.length > 1 ? `${at + 1} / ${slides.length}` : "";
+  if (s.video) {
+    lbFig.classList.remove("loading");
+    lbImg.hidden = true;
+    lbVid.hidden = false;
+    lbVid.src = s.src;
     lbVid.play().catch(() => {});
+    lbCap.textContent = s.cap;
   } else {
     lbVid.pause();
-    lbImg.src = slides[at].src;
+    lbVid.removeAttribute("src");
+    lbVid.hidden = true;
+    lbImg.hidden = false;
+    preload(s);
+    const im = cache.get(s.src);
+    const reveal = () => {
+      if (token !== showToken) return; // a newer slide was requested meanwhile
+      lbImg.src = s.src;
+      lbImg.alt = s.cap;
+      lbCap.textContent = s.cap;
+      lbFig.classList.remove("loading");
+    };
+    if (im.complete && im.naturalWidth) reveal();
+    else {
+      lbFig.classList.add("loading");
+      im.decode ? im.decode().then(reveal, reveal) : (im.onload = reveal);
+    }
   }
-  lbImg.alt = slides[at].cap;
-  lbCap.textContent = slides[at].cap;
-  lbCount.textContent = slides.length > 1 ? `${at + 1} / ${slides.length}` : "";
-  const nextSlide = slides[(at + 1) % slides.length];
-  if (slides.length > 1 && !nextSlide.video) new Image().src = nextSlide.src;
+  if (slides.length > 1) {
+    preload(slides[(at + 1) % slides.length]);
+    preload(slides[(at - 1 + slides.length) % slides.length]);
+  }
 };
 const openLb = (list) => {
   slides = list;
@@ -182,6 +211,7 @@ document.querySelectorAll("[data-flash]").forEach((pol) =>
 const closeLb = () => {
   lightbox.hidden = true;
   lbVid.pause();
+  showToken++;
 };
 document.getElementById("lbClose").addEventListener("click", closeLb);
 lbPrev.addEventListener("click", () => show(at - 1));
@@ -261,6 +291,7 @@ if (!reduce && matchMedia("(pointer: fine)").matches) {
   const colors = ["#ffd84d", "#ff9ec0", "#8fd0ff", "#93e3b8", "#cbb2ff"];
   let last = 0;
   addEventListener("pointermove", (e) => {
+    if (!lightbox.hidden) return;
     const now = performance.now();
     if (now - last < 45) return;
     last = now;
