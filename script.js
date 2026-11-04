@@ -280,7 +280,7 @@ document.getElementById("contactForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const d = new FormData(e.target);
   const subject = `${d.get("type")} enquiry from ${d.get("name")}`;
-  const body = `Hi Riya!\n\n${d.get("msg") || ""}\n\n— ${d.get("name")}`;
+  const body = `Hi Riya,\n\n${d.get("msg") || ""}\n\nName: ${d.get("name")}\nContact: ${d.get("contact")}\nService: ${d.get("type")}`;
   location.href = `mailto:riyajstar07@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 });
 
